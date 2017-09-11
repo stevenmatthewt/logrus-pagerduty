@@ -1,8 +1,6 @@
 package pagerduty
 
 import (
-	"fmt"
-
 	pd "github.com/PagerDuty/go-pagerduty"
 	"github.com/sirupsen/logrus"
 )
@@ -32,9 +30,8 @@ func (hook *hook) Fire(entry *logrus.Entry) error {
 	}
 	_, err := pd.CreateEvent(event)
 	if err != nil {
-		fmt.Printf("%+v", err)
+		entry.Warnf("failed to alert pagerduty: %+v", err)
 	}
-	fmt.Print("TESTING -- Fire")
 	return nil
 }
 
